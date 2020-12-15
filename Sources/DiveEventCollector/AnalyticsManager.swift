@@ -34,6 +34,9 @@ public final class AnalyticsManager {
     
     private func setupEngine() {
         currentEngine = backupEngine
+        if backupEngine == nil {
+            currentEngine = mainEngine
+        }
     }
     
     public func log<T: AnalyticsEvent>(_ event: T) {
