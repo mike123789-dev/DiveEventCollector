@@ -11,7 +11,7 @@ Xcode 메뉴에서 File > Swift Packages > Add Package Dependency를 선택후
 
 1. Event
     - analytics system이 제공하는 모든 **이벤트들**.
-    - `AnalyticsEvent` 프로토콜 채택
+    - `Event` 프로토콜 채택
 2. EventManager
     - 이벤트를 로깅하기 위한 최상단 API, 실제로 로깅을하지는 않고,
     - `AnalyticsEngine`을 이용하여 보냄.
@@ -24,7 +24,7 @@ Xcode 메뉴에서 File > Swift Packages > Add Package Dependency를 선택후
 ## Event
 
 ```swift
-public protocol AnalyticsEvent: Codable {
+public protocol Event: Codable {
     var name: String { get }
     var createdAt: String? { get }
     var metadata: [String: String]? { get }
@@ -33,7 +33,7 @@ public protocol AnalyticsEvent: Codable {
 ```
 기본적으로 제공되는 이벤트
 ```swift
-class BaseEvent: AnalyticsEvent {
+class BaseEvent: Event {
     var name: String
     var createdAt: String?
     var metadata: [String: String]?
@@ -46,9 +46,9 @@ class BaseEvent: AnalyticsEvent {
 }
 ```
 
-AnalyticsEvent 프로토콜을 채택하는 Custom Event의 예시
+Event 프로토콜을 채택하는 Custom Event의 예시
 ```swift
-struct ScreenEvent: AnalyticsEvent {
+struct ScreenEvent: Event {
     var name: String
     var metadata: [String: String]?
     
@@ -67,7 +67,7 @@ struct ScreenEvent: AnalyticsEvent {
 ## Event Engine
 ```swift
 public protocol EventSendable: class {
-    func send<T: AnalyticsEvent>(_ event: T)
+    func send<T: Event>(_ event: T)
 }
 
 public protocol EventFetchable: class {
@@ -83,7 +83,7 @@ public final class MockServerEngine: EventSendable {
     public init() {
         
     }
-    public func send<T: AnalyticsEvent>(_ event: T) {
+    public func send<T: Event>(_ event: T) {
         print("MockServer - \(event.name)")
         event.metadata?.forEach { key, value in
             print("ㄴ \(key) : \(value)")
