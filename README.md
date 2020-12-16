@@ -14,7 +14,7 @@ Xcode 메뉴에서 File > Swift Packages > Add Package Dependency를 선택후
     - `Event` 프로토콜 채택
 2. EventManager
     - 이벤트를 로깅하기 위한 최상단 API, 실제로 로깅을하지는 않고,
-    - `AnalyticsEngine`을 이용하여 보냄.
+    - `EventEngine`을 이용하여 보냄.
 3. EventEngine
     - 직접적으로 로깅 전송/저장을 담당.
     - `EventSendable`, `EventFetchable` 프로토콜 채택 
@@ -99,13 +99,13 @@ public final class MockServerEngine: EventSendable {
 
 ### 이벤트의 간편한 확장성
 
-`AnalyticEvent이` protocol로 구현함으로써, 새로운 이벤트를 추가하는것은 매우 간편해집니다. 
+`Event` protocol로 구현함으로써, 새로운 이벤트를 추가하는것은 매우 간편해집니다. 
 
 ![](https://i.imgur.com/fCncpdR.gif)
 
 ### 이벤트 type checking
 
-`AnalyticEvent` protocol을 채택하는 custom type의 이벤트를 구현함으로써, 원하는 이벤트에 대한 자동완성 결과를 볼수 있습니다.
+`Event` protocol을 채택하는 custom type의 이벤트를 구현함으로써, 원하는 이벤트에 대한 자동완성 결과를 볼수 있습니다.
 
 ![](https://i.imgur.com/MSw2rnw.png)
 
