@@ -12,7 +12,7 @@ Xcode 메뉴에서 File > Swift Packages > Add Package Dependency를 선택후
 1. Event
     - analytics system이 제공하는 모든 **이벤트들**.
     - `AnalyticsEvent` 프로토콜 채택
-2. AnalyticsManager
+2. EventManager
     - 이벤트를 로깅하기 위한 최상단 API, 실제로 로깅을하지는 않고,
     - `AnalyticsEngine`을 이용하여 보냄.
 3. EventEngine
@@ -117,7 +117,7 @@ public final class MockServerEngine: EventSendable {
 
 ![](https://i.imgur.com/s13yZNi.gif)
 
-또한, AnalyticsManager는 다수의 엔진을 가질 수도 있습니다.
+또한, EventManager는 다수의 엔진을 가질 수도 있습니다.
 실제로 [저희 앱](https://github.com/boostcamp-2020/Project01-A-User-Event-Collector)에서는 back end server를 위한 `engine`과 core data를 위한 `engine` 두개를 구현하고 주입했습니다.
 
 
@@ -125,14 +125,14 @@ public final class MockServerEngine: EventSendable {
 
 **SwiftUI App life cycle**
 
-먼저 최상위 파일인 App에 `import DiveEventCollector` 후 AnalyticsManager를 만들어줍니다.
+먼저 최상위 파일인 App에 `import DiveEventCollector` 후 EventManager를 만들어줍니다.
 
 ```swift
 import DiveEventCollector
 
 struct MiniVibeApp: App {
     
-    let manager = AnalyticsManager(serverEngine: MockServerEngine(), backupEngine: nil, alertEngine: nil)
+    let manager = EventManager(serverEngine: MockServerEngine(), backupEngine: nil, alertEngine: nil)
 
 
     var body: some Scene {
@@ -149,9 +149,9 @@ struct MiniVibeApp: App {
 ```swift
 struct CustomTabView: View {
         
-    private let manager: AnalyticsManager
+    private let manager: EventManager
 
-    init(manager: AnalyticsManager) {
+    init(manager: EventManager) {
         self.manager = manager
     }
 '
@@ -162,9 +162,9 @@ struct CustomTabView: View {
 
 ```swift
 struct TodayView: View {
-    private let manager: AnalyticsManager
+    private let manager: EventManager
 
-    init(manager: AnalyticsManager) {
+    init(manager: EventManager) {
         self.manager = manager
     }
 

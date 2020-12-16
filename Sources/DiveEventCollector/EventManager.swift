@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class AnalyticsManager {
+public final class EventManager {
     private var currentEngine: EventSendable?
     private var mainEngine: EventSendable?
     private var backupEngine: EventSendableAndFetchable?
@@ -39,7 +39,7 @@ public final class AnalyticsManager {
         }
     }
     
-    public func log<T: AnalyticsEvent>(_ event: T) {
+    public func log<T: Event>(_ event: T) {
         if isAlerting {
             alertEngine?.send(event)
         }
@@ -65,7 +65,7 @@ public final class AnalyticsManager {
     
 }
 
-extension AnalyticsManager: ReachabilityObserverDelegate {
+extension EventManager: ReachabilityObserverDelegate {
     
     internal func reachabilityChanged(_ isReachable: Bool) {
         if isReachable {
