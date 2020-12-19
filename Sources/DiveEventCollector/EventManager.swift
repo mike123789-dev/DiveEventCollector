@@ -15,11 +15,11 @@ public final class EventManager {
     
     public var isAlerting: Bool
     
-    public init(serverEngine: EventSendable?,
+    public init(mainEngine: EventSendable?,
                 backupEngine: EventSendableAndFetchable?,
-                alertEngine: EventSendable?,
+                alertEngine: EventSendable? = nil,
                 isAlerting: Bool = true) {
-        self.mainEngine = serverEngine
+        self.mainEngine = mainEngine
         self.backupEngine = backupEngine
         self.alertEngine = alertEngine
         self.isAlerting = isAlerting
